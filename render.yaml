@@ -1,0 +1,18 @@
+# render.yaml
+services:
+  - type: web
+    name: laravel-app
+    runtime: docker
+    env: alpine
+    buildCommand: chmod +x rebuild.sh && ./rebuild.sh
+    startCommand: /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        generateValue: true
+      - key: LOG_CHANNEL
+        value: stderr
+    database:
+      name: postgres
+      version: 15
